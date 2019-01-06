@@ -72,6 +72,11 @@ some_fun()
 #> ● trying ~/config.yaml: ✖ failed (source file does not exist)
 #> ● resorting to terminal fallback value: ✔success (TRUE)
 #> [1] TRUE
+
+some_fun("q")
+#> declaring argument arg_1 
+#> ● resorting to literal input value:  ✔ success (q)
+#> [1] "q"
 ```
 
 You can disable message printing with `options(fallback.verbose = 0)`.

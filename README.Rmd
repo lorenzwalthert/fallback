@@ -67,6 +67,8 @@ some_fun <- function(arg_1 = fallback(TRUE)) {
 }
 
 some_fun()
+
+some_fun("q")
 ```
 
 You can disable message printing with `options(fallback.verbose = 0)`.
