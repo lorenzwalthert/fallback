@@ -86,7 +86,7 @@ remotes::install_github("lorenzwalthert/fallback")
 
 ## Applications
 
-This is premarily for package developers and functions that are called
+This is primarily for package developers and functions that are called
 in interactive use. One use case could be the source code formatter
 [styler](https://styler.r-lib.org), where one want to define a
 configuration on a project by project basis. We could create the
@@ -95,15 +95,17 @@ following config file in a project root:
     strict: False
     scope: spaces
 
+Note that we can place R code in the YAML file like `!expr seq(1, 2)`.
+
 If the declaration of `tidyverse_style` was
 
 ``` r
 tidyverse_style <- function(scope = fallback("tokens"),
                             strict = fallback(TRUE),
-                            indent_by = 2,
-                            start_comments_with_one_space = FALSE,
-                            reindention = tidyverse_reindention(),
-                            math_token_spacing = tidyverse_math_token_spacing()) {
+                            indent_by = fallback(2),
+                            start_comments_with_one_space = fallback(FALSE),
+                            reindention = fallback(tidyverse_reindention()),
+                            math_token_spacing = fallback(tidyverse_math_token_spacing())) {
   strict <- resolve_fallback(strict)
   # ...
 }
