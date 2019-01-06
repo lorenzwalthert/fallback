@@ -70,7 +70,7 @@ some_fun()
 #> declaring argument arg_1 
 #> ● trying ./config.yaml: ✖ failed (key does not exist in source file)
 #> ● trying ~/config.yaml: ✖ failed (source file does not exist)
-#> ● resorting to terminal fallback value: ✔success (TRUE)
+#> ● resorting to terminal fallback value: ✔ success (TRUE)
 #> [1] TRUE
 
 some_fun("q")

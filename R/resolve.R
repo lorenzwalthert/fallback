@@ -69,7 +69,7 @@ declare_value <- function(key, hierarchy, source_file, terminal_fallback_value) 
     cat_if_verbose(crayon::silver(paste0(
       cli::symbol$bullet, " resorting to terminal fallback value: "
     )))
-    cat_if_verbose(crayon::green(paste0(cli::symbol$tick, "success (", any_to_char(terminal_fallback_value), ")\n")))
+    cat_if_verbose(crayon::green(paste0(cli::symbol$tick, " success (", any_to_char(terminal_fallback_value), ")\n")))
     value <- Value$new(terminal_fallback_value, retrieved = TRUE)
   }
   value
