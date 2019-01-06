@@ -27,7 +27,10 @@ resolve_fallback <- function(fallback) {
   cat_if_verbose(crayon::silver(paste("declaring argument", key, "\n")))
 
   if (!(inherits(fallback, "Fallback"))) {
-    cat_if_verbose(cli::cat_bullet(paste0("resorting to literal input value (", fallback, ")"), col = "green"))
+    cat_if_verbose(crayon::silver(paste0(
+      cli::symbol$bullet, " resorting to literal input value: "
+    ), crayon::green(paste0(cli::symbol$tick, " success (", fallback, ")\n")
+    )))
     fallback_ <- fallback(fallback)
     fallback_$add_key(key)
     fallback_$add_value(fallback)
