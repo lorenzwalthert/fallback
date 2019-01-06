@@ -6,6 +6,10 @@ output: github_document
 
 [![lifecycle](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
 
+[![Travis build status](https://travis-ci.org/lorenzwalthert/fallback.svg?branch=master)](https://travis-ci.org/lorenzwalthert/fallback)
+
+[![Coverage status](https://codecov.io/gh/lorenzwalthert/fallback/branch/master/graph/badge.svg)](https://codecov.io/github/lorenzwalthert/fallback?branch=master)
+
 ```{r setup, include = FALSE}
 knitr::opts_chunk$set(
   collapse = TRUE,

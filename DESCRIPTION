@@ -21,6 +21,9 @@ RoxygenNote: 6.1.1
 Roxygen: list(markdown = TRUE, roclets = c("rd", "namespace",
     "collate", "pkgapi::api_roclet"))
 Suggests: 
-    testthat
+    testthat,
+    covr
 URL: https://github.com/lorenzwalthert/fallback
 BugReports: https://github.com/lorenzwalthert/fallback/issues
+Depends: 
+    R (>= 3.1)
