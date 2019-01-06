@@ -46,7 +46,7 @@ we create a fallback chain that, when used in a function declaration
 
 ``` r
 library(fallback)
-fallback(TRUE, hierarchy = c(".", "~"), source_file = "config.yaml", key = "arg_1")
+fallback(TRUE, source_file = "config.yaml", hierarchy = c(".", "~"), key = "arg_1")
 #> <fallback>
 #> key                     "arg_1"
 #> value                   

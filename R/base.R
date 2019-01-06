@@ -12,16 +12,22 @@
 #' @export
 #' @examples
 #' fallback(TRUE)
-fallback <- function(terminal_fallback_value, hierarchy = c("./", "~/"),
-                     source_file = "config.yaml", key = NULL) {
-  Fallback$new(key, hierarchy, source_file, terminal_fallback_value = terminal_fallback_value)
+fallback <- function(terminal_fallback_value,
+                     source_file = "config.yaml",
+                     hierarchy = c("./", "~/"),
+                     key = NULL) {
+  Fallback$new(
+    key = key, source_file = source_file,
+    hierarchy = hierarchy,
+    terminal_fallback_value = terminal_fallback_value
+  )
 }
 
 Fallback <- R6::R6Class("Fallback", public = list(
   key = NULL, key_retrieved = NULL,
   hierarchy = NULL, source_file = NULL, terminal_fallback_value = NULL, value = NULL,
   value_retrieved = NULL,
-  initialize = function(key, hierarchy, source_file, terminal_fallback_value) {
+  initialize = function(key, source_file, hierarchy, terminal_fallback_value) {
     self$key <- as.character(key)
     self$key_retrieved <- !is.null(key)
     self$hierarchy <- hierarchy

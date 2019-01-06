@@ -4,8 +4,8 @@
 \alias{fallback}
 \title{Create a fallback}
 \usage{
-fallback(terminal_fallback_value, hierarchy = c("./", "~/"),
-  source_file = "config.yaml", key = NULL)
+fallback(terminal_fallback_value, source_file = "config.yaml",
+  hierarchy = c("./", "~/"), key = NULL)
 }
 \arguments{
 \item{terminal_fallback_value}{The value the fallback will resolve to when
