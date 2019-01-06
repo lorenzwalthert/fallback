@@ -3,6 +3,12 @@
 
 [![lifecycle](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
 
+[![Travis build
+status](https://travis-ci.org/lorenzwalthert/fallback.svg?branch=master)](https://travis-ci.org/lorenzwalthert/fallback)
+
+[![Coverage
+status](https://codecov.io/gh/lorenzwalthert/fallback/branch/master/graph/badge.svg)](https://codecov.io/github/lorenzwalthert/fallback?branch=master)
+
 # fallback
 
 The goal of fallback is to provide a mechanism for determining the value
@@ -56,7 +62,7 @@ will be determined.
 
 ``` r
 some_fun <- function(arg_1 = fallback(TRUE)) {
-  arg_1 <- evaluate_fallback(arg_1)
+  arg_1 <- resolve_fallback(arg_1)
   arg_1$value
 }
 
@@ -98,7 +104,7 @@ tidyverse_style <- function(scope = fallback("tokens"),
                             start_comments_with_one_space = FALSE,
                             reindention = tidyverse_reindention(),
                             math_token_spacing = tidyverse_math_token_spacing()) {
-  strict <- evaluate_fallback(strict)
+  strict <- resolve_fallback(strict)
   # ...
 }
 ```
