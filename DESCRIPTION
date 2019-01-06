@@ -22,3 +22,5 @@ Roxygen: list(markdown = TRUE, roclets = c("rd", "namespace",
     "collate", "pkgapi::api_roclet"))
 Suggests: 
     testthat
+URL: https://github.com/lorenzwalthert/fallback
+BugReports: https://github.com/lorenzwalthert/fallback/issues
