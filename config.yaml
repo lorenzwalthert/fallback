@@ -1,0 +1,4 @@
+style_guide:
+  tidyverse_style
+strict:
+  False

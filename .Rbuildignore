@@ -1,0 +1,6 @@
+^LICENSE\.md$
+^API$
+^README\.Rmd$
+^fallback\.Rproj$
+^\.Rproj\.user$
+^config.yaml$

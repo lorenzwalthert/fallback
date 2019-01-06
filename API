@@ -1,0 +1,6 @@
+# API for fallback package
+
+## Exported functions
+
+fallback(terminal_fallback_value, hierarchy = c("./", "~/"), source_file = "config.yaml", key = NULL)
+resolve_fallback(fallback)
