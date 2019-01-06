@@ -1,11 +1,11 @@
 #' Create a fallback
 #'
-#' Creates a fallback that can be evaluated with [resolve_fallback()]. See the
-#' README for more examples and how to use it.
+#' Creates a fallback that can be evaluated with [resolve_fallback()].
 #' @param terminal_fallback_value The value the fallback will resolve to when
 #'   no other instance in the hierarchy defines the key.
 #' @param hierarchy,source_file Define the paths to the yaml files where we
-#'   look for a key to be defined.
+#'   look for a key to be defined. By default, it is a file called `config.yaml`
+#'   in the working directory and the home directory.
 #' @param key The key, that is, the name of the argument the fallback is created
 #'   for. Can be `NULL`, so the definition of the key is deferred until
 #'   [resolve_fallback()] is called to avoid redundancy.

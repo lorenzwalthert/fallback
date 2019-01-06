@@ -12,15 +12,15 @@ fallback(terminal_fallback_value, hierarchy = c("./", "~/"),
 no other instance in the hierarchy defines the key.}
 
 \item{hierarchy, source_file}{Define the paths to the yaml files where we
-look for a key to be defined.}
+look for a key to be defined. By default, it is a file called \code{config.yaml}
+in the working directory and the home directory.}
 
 \item{key}{The key, that is, the name of the argument the fallback is created
 for. Can be \code{NULL}, so the definition of the key is deferred until
 \code{\link[=resolve_fallback]{resolve_fallback()}} is called to avoid redundancy.}
 }
 \description{
-Creates a fallback that can be evaluated with \code{\link[=resolve_fallback]{resolve_fallback()}}. See the
-README for more examples and how to use it.
+Creates a fallback that can be evaluated with \code{\link[=resolve_fallback]{resolve_fallback()}}.
 }
 \examples{
 fallback(TRUE)
