@@ -66,12 +66,22 @@ some_fun <- function(arg_1 = fallback(TRUE)) {
   arg_1$value
 }
 
+options(fallback.verbose = 2) # make chain walk explicit
+
 some_fun()
 
 some_fun("q")
+
+options(fallback.verbose = 1) # less verbose
+
+some_fun()
+
+some_fun("q")
+
+
 ```
 
-You can disable message printing with `options(fallback.verbose = 0)`.
+You can disable message printing completely with `options(fallback.verbose = 0)`.
 
 ## Installation
 

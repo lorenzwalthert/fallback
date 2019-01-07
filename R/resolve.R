@@ -24,13 +24,15 @@
 #' @export
 resolve_fallback <- function(fallback) {
   key <- deparse(substitute(fallback))
-  cat_if_verbose(crayon::silver(paste("declaring argument", key, "\n")))
-
+  cat_if_verbose2(crayon::silver(paste("declaring argument", key, "\n")))
+  cat_if_verbose1(crayon::silver(paste("declaring argument", key)))
   if (!(inherits(fallback, "Fallback"))) {
-    cat_if_verbose(crayon::silver(paste0(
+    cat_if_verbose2(crayon::silver(paste0(
       cli::symbol$bullet, " resorting to literal input value: "
     ), crayon::green(paste0(cli::symbol$tick, " success (", fallback, ")\n")
     )))
+    cat_if_verbose1(crayon::green(paste0(" (literal input value)\n")))
+
     fallback_ <- fallback(fallback)
     fallback_$add_key(key)
     fallback_$add_value(fallback)
@@ -66,27 +68,29 @@ declare_value <- function(key, hierarchy, source_file, terminal_fallback_value) 
     if (value$retrieved) break
   }
   if (!value$retrieved) {
-    cat_if_verbose(crayon::silver(paste0(
+    cat_if_verbose2(crayon::silver(paste0(
       cli::symbol$bullet, " resorting to terminal fallback value: "
     )))
-    cat_if_verbose(crayon::green(paste0(cli::symbol$tick, " success (", any_to_char(terminal_fallback_value), ")\n")))
+    cat_if_verbose2(crayon::green(paste0(cli::symbol$tick, " success (", any_to_char(terminal_fallback_value), ")\n")))
+    cat_if_verbose1(crayon::green(paste0(" (terminal fallback)\n")))
     value <- Value$new(terminal_fallback_value, retrieved = TRUE)
   }
   value
 }
 
 retrieve_from_path <- function(key, path) {
-  cat_if_verbose(crayon::silver(paste0(cli::symbol$bullet, " trying ", path, ": ", collapse = "")))
+  cat_if_verbose2(crayon::silver(paste0(cli::symbol$bullet, " trying ", path, ": ", collapse = "")))
   if (!fs::file_exists(path)) {
-    cat_if_verbose(crayon::red(cli::symbol$cross, "failed (source file does not exist)\n"))
+    cat_if_verbose2(crayon::red(cli::symbol$cross, "failed (source file does not exist)\n"))
     return(Value$new(NULL, retrieved = FALSE))
   }
   content <- yaml::read_yaml(path, eval.expr = TRUE)
   if (key %in% names(content)) {
-    cat_if_verbose(crayon::green(paste0(cli::symbol$tick, " success (", paste(content[[key]], collapse = ", "), ")\n")))
+    cat_if_verbose2(crayon::green(paste0(cli::symbol$tick, " success (", paste(content[[key]], collapse = ", "), ")\n")))
+    cat_if_verbose1(crayon::green(paste0(" (", path, ")\n")))
     Value$new(content[[key]], retrieved = TRUE)
   } else {
-    cat_if_verbose(crayon::red(cli::symbol$cross, "failed (key does not exist in source file)\n"))
+    cat_if_verbose2(crayon::red(cli::symbol$cross, "failed (key does not exist in source file)\n"))
     Value$new(NULL, retrieved = FALSE)
 
   }

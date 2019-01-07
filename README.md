@@ -66,6 +66,8 @@ some_fun <- function(arg_1 = fallback(TRUE)) {
   arg_1$value
 }
 
+options(fallback.verbose = 2) # make chain walk explicit
+
 some_fun()
 #> declaring argument arg_1 
 #> ● trying ./config.yaml: ✖ failed (key does not exist in source file)
@@ -77,9 +79,20 @@ some_fun("q")
 #> declaring argument arg_1 
 #> ● resorting to literal input value:  ✔ success (q)
 #> [1] "q"
+
+options(fallback.verbose = 1) # less verbose
+
+some_fun()
+#> declaring argument arg_1 (terminal fallback)
+#> [1] TRUE
+
+some_fun("q")
+#> declaring argument arg_1 (literal input value)
+#> [1] "q"
 ```
 
-You can disable message printing with `options(fallback.verbose = 0)`.
+You can disable message printing completely with
+`options(fallback.verbose = 0)`.
 
 ## Installation
 

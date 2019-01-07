@@ -13,8 +13,14 @@ any_to_char <- function(x, max_length = 10, quote_chars = TRUE) {
   paste(x, collapse = sep)
 }
 
-cat_if_verbose <- function(...) {
-  if (getOption("fallback.verbose") > 0) {
+cat_if_verbose2 <- function(...) {
+  if (getOption("fallback.verbose") >= 2) {
+    cat(...)
+  }
+}
+
+cat_if_verbose1 <- function(...) {
+  if (getOption("fallback.verbose") == 1) {
     cat(...)
   }
 }
