@@ -1,4 +1,4 @@
-any_to_char <- function(x, max_length = 10, quote_chars = TRUE) {
+any_to_char <- function(x, max_width = 60, quote_chars = TRUE) {
   x <- unlist(x)
   if (is.character(x) && quote_chars) {
     x <- paste0("\"", x, "\"")
@@ -7,10 +7,13 @@ any_to_char <- function(x, max_length = 10, quote_chars = TRUE) {
     x <- deparse(substitute(x))
     sep <- ""
   }
-  if (length(x) > max_length) {
-    x <- c(x[seq(1, max(0, max_length - 2L))], "...", x[length(x)])
+  all <- paste(x, collapse = sep)
+  if (nchar(all) > max_width) {
+    end <- substr(all, nchar(all) - 10L, nchar(all))
+  } else {
+    end <- ""
   }
-  paste(x, collapse = sep)
+  paste(substr(all, 1, max_width - 10L), "...", end)
 }
 
 cat_if_verbose2 <- function(...) {

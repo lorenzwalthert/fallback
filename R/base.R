@@ -38,24 +38,27 @@ Fallback <- R6::R6Class("Fallback", public = list(
   },
   print = function() {
     compose_pair <- function(key, value, is_available, quote_chars = FALSE) {
-      paste0(key, if (is_available) any_to_char(value, is_available), "\n")
+      paste0(key, if (is_available) any_to_char(value), "\n")
     }
     cli::cat_line(
-    "<fallback>\n",
-    compose_pair(
-      "key                     ", self$key, self$key_retrieved, quote_chars = FALSE
-    ),
-    compose_pair(
-      "value                   ", self$value, self$value_retrieved
-    ),
-    "hierarchy               ",
-    paste0(self$hierarchy, collapse = " -> "), "\n",
-    compose_pair(
-      "terminal fallback value ",
-      self$terminal_fallback_value, is_available = TRUE
-    ),
-    "source file             ", self$source_file, col = "gray30"
-  )
+      "<fallback>\n",
+      compose_pair(
+        "key                     ", self$key, self$key_retrieved,
+        quote_chars = FALSE
+      ),
+      compose_pair(
+        "value                   ", self$value, self$value_retrieved
+      ),
+      "hierarchy               ",
+      paste0(self$hierarchy, collapse = " -> "), "\n",
+      compose_pair(
+        "terminal fallback value ",
+        self$terminal_fallback_value,
+        is_available = TRUE
+      ),
+      "source file             ", self$source_file,
+      col = "gray30"
+    )
   },
   add_value = function(value) {
     self$value <- value
@@ -81,6 +84,5 @@ Value <- R6::R6Class("Value", public = list(
     } else {
       cat_if_verbose("value: ")
     }
-
   }
 ))
