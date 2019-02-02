@@ -13,27 +13,34 @@
 #' @examples
 #' fallback(TRUE)
 fallback <- function(terminal_fallback_value,
-                     source_file = "config.yaml",
+                     source_file = "fallbacks.yaml",
                      hierarchy = c("./", "~/"),
+                     header = NULL,
                      key = NULL) {
+  if (is.null(header)) {
+    browser()
+    header <- rlang::env_parent(rlang::caller_env())$.packageName
+  }
   Fallback$new(
     key = key, source_file = source_file,
-    hierarchy = hierarchy,
+    hierarchy = hierarchy, header = header,
     terminal_fallback_value = terminal_fallback_value
   )
 }
 
 Fallback <- R6::R6Class("Fallback", public = list(
   key = NULL, key_retrieved = NULL,
-  hierarchy = NULL, source_file = NULL, terminal_fallback_value = NULL, value = NULL,
+  hierarchy = NULL, source_file = NULL,
+  header = NULL, terminal_fallback_value = NULL, value = NULL,
   value_retrieved = NULL,
-  initialize = function(key, source_file, hierarchy, terminal_fallback_value) {
+  initialize = function(key, source_file, hierarchy, header, terminal_fallback_value) {
     self$key <- as.character(key)
     self$key_retrieved <- !is.null(key)
     self$hierarchy <- hierarchy
     self$source_file <- source_file
     self$value <- NULL
     self$value_retrieved <- FALSE
+    self$header <- header
     self$terminal_fallback_value <- terminal_fallback_value
   },
   print = function() {

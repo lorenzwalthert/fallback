@@ -11,11 +11,12 @@ status](https://codecov.io/gh/lorenzwalthert/fallback/branch/master/graph/badge.
 
 # fallback
 
-The goal of fallback is to provide a mechanism for determining the value
+The goal of fallback is to provide a mechanism for resolving the value
 of arguments of function calls at the time the function is called. It
-extends the concept of default values.
+extends the concept of default values but the value resolution can also
+be used outside of this context.
 
-See the below example:
+See the below example for the primary use case:
 
 ``` r
 g <- function(x = 1) x
@@ -30,28 +31,35 @@ determined as follows:
 
 fallback provides a mechanism to extend this chain by defining more
 places to look for a specification. This can be helpful for functions
-that are called often interactively. For portability and similar to the
-`.Rprofile`, the configuration could be stored in a config file. Below,
-we create a fallback chain that, when used in a function declaration
+that are called often interactively. For portability and transparency,
+the configuration could be stored in a config file. Below, we create a
+fallback chain that, when used in a function declaration
 
-1.  checks if `config.yaml` in the working directory (`"."`) contains a
-    key `"arg_1"`.
+1.  checks if the function call specifies the argument value.
 
-2.  if not, checks if the home directory (`"~"`) contains such a file
+2.  If not, check if `config.yaml` in the working directory (`"."`)
+    contains a key `"arg_1"`.
+
+3.  if not, checks if the home directory (`"~"`) contains such a file
     and key.
 
-3.  if not sets the argument to `TRUE`.
+4.  if not sets the argument to `TRUE`.
 
 <!-- end list -->
 
 ``` r
 library(fallback)
 fallback(TRUE, source_file = "config.yaml", hierarchy = c(".", "~"), key = "arg_1")
+#> Called from: fallback(TRUE, source_file = "config.yaml", hierarchy = c(".", 
+#>     "~"), key = "arg_1")
+#> debug at /Users/lorenz/datasciencecoursera/fallback/R/base.R#22: header <- rlang::env_parent(rlang::caller_env())$.packageName
+#> debug at /Users/lorenz/datasciencecoursera/fallback/R/base.R#24: Fallback$new(key = key, source_file = source_file, hierarchy = hierarchy, 
+#>     header = header, terminal_fallback_value = terminal_fallback_value)
 #> <fallback>
-#> key                     "arg_1"
+#> key                     "arg_1" ... 
 #> value                   
 #> hierarchy               . -> ~
-#> terminal fallback value TRUE
+#> terminal fallback value TRUE ... 
 #> source file             config.yaml
 ```
 
@@ -69,25 +77,41 @@ some_fun <- function(arg_1 = fallback(TRUE)) {
 options(fallback.verbose = 2) # make chain walk explicit
 
 some_fun()
-#> declaring argument arg_1 
-#> ● trying ./config.yaml: ✖ failed (key does not exist in source file)
-#> ● trying ~/config.yaml: ✖ failed (source file does not exist)
-#> ● resorting to terminal fallback value: ✔ success (TRUE)
+#> resolving argument arg_1 
+#> Called from: fallback(TRUE)
+#> debug at /Users/lorenz/datasciencecoursera/fallback/R/base.R#22: header <- rlang::env_parent(rlang::caller_env())$.packageName
+#> debug at /Users/lorenz/datasciencecoursera/fallback/R/base.R#24: Fallback$new(key = key, source_file = source_file, hierarchy = hierarchy, 
+#>     header = header, terminal_fallback_value = terminal_fallback_value)
+#> ● trying ./fallbacks.yaml: ✖ failed (source file does not exist)
+#> ● trying ~/fallbacks.yaml: ✖ failed (source file does not exist)
+#> ● resorting to terminal fallback value: ✔ success (TRUE ... )
 #> [1] TRUE
 
 some_fun("q")
-#> declaring argument arg_1 
+#> resolving argument arg_1 
 #> ● resorting to literal input value:  ✔ success (q)
+#> Called from: fallback(fallback)
+#> debug at /Users/lorenz/datasciencecoursera/fallback/R/base.R#22: header <- rlang::env_parent(rlang::caller_env())$.packageName
+#> debug at /Users/lorenz/datasciencecoursera/fallback/R/base.R#24: Fallback$new(key = key, source_file = source_file, hierarchy = hierarchy, 
+#>     header = header, terminal_fallback_value = terminal_fallback_value)
 #> [1] "q"
 
 options(fallback.verbose = 1) # less verbose
 
 some_fun()
-#> declaring argument arg_1 (terminal fallback)
+#> resolving argument arg_1Called from: fallback(TRUE)
+#> debug at /Users/lorenz/datasciencecoursera/fallback/R/base.R#22: header <- rlang::env_parent(rlang::caller_env())$.packageName
+#> debug at /Users/lorenz/datasciencecoursera/fallback/R/base.R#24: Fallback$new(key = key, source_file = source_file, hierarchy = hierarchy, 
+#>     header = header, terminal_fallback_value = terminal_fallback_value)
+#>  (terminal fallback)
 #> [1] TRUE
 
 some_fun("q")
-#> declaring argument arg_1 (literal input value)
+#> resolving argument arg_1 (literal input value)
+#> Called from: fallback(fallback)
+#> debug at /Users/lorenz/datasciencecoursera/fallback/R/base.R#22: header <- rlang::env_parent(rlang::caller_env())$.packageName
+#> debug at /Users/lorenz/datasciencecoursera/fallback/R/base.R#24: Fallback$new(key = key, source_file = source_file, hierarchy = hierarchy, 
+#>     header = header, terminal_fallback_value = terminal_fallback_value)
 #> [1] "q"
 ```
 

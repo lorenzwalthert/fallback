@@ -3,29 +3,29 @@
 #' Resolves the value of a fallback chain defined with [fallback()].
 #' @param fallback A fallback chain defined with [fallback()].
 #' @examples
-#' 
+#'
 #' f <- function(x = fallback(TRUE)) {
 #'   resolve_fallback(x)$value
 #' }
-#' 
+#'
 #' f() # with no config files in place, this resolves to the terminal fallback.
 #' dir <- tempdir()
 #' dir1 <- fs::path(dir, "dir1")
 #' fs::dir_create(dir1)
 #' yaml::write_yaml(list(frog = 100), fs::path(dir1, "config.yaml"))
-#' 
-#' 
+#'
+#'
 #' g <- function(frog = fallback(letters, hierarchy = dir1)) {
 #'   resolve_fallback(frog)$value
 #' }
-#' 
+#'
 #' # this should resolve to the fallback declared in dir1
 #' g()
 #' @export
 resolve_fallback <- function(fallback) {
   key <- deparse(substitute(fallback))
-  cat_if_verbose2(crayon::silver(paste("declaring argument", key, "\n")))
-  cat_if_verbose1(crayon::silver(paste("declaring argument", key)))
+  cat_if_verbose2(crayon::silver(paste("resolving argument", key, "\n")))
+  cat_if_verbose1(crayon::silver(paste("resolving argument", key)))
   if (!(inherits(fallback, "Fallback"))) {
     cat_if_verbose2(crayon::silver(paste0(
       cli::symbol$bullet, " resorting to literal input value: "

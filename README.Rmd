@@ -21,11 +21,12 @@ knitr::opts_chunk$set(
 
 # fallback
 
-The goal of fallback is to provide a mechanism for determining the value of
+The goal of fallback is to provide a mechanism for resolving the value of
 arguments of function calls at the time the function is called. It extends the
-concept of default values.
+concept of default values but the value resolution can also be used outside of 
+this context.
 
-See the below example:
+See the below example for the primary use case:
 
 ```{r}
 g <- function(x = 1) x
@@ -40,16 +41,18 @@ as follows:
 
 fallback provides a mechanism to extend this chain by defining more places to
 look for a specification. This can be helpful for functions that are called
-often interactively. For portability and similar to the `.Rprofile`, the
+often interactively. For portability and transparency, the
 configuration could be stored in a config file. Below, we create a fallback
 chain that, when used in a function declaration
 
-1. checks if `config.yaml` in the working directory (`"."`) contains a key
+1. checks if the function call specifies the argument value. 
+
+2. If not, check if `config.yaml` in the working directory (`"."`) contains a key
    `"arg_1"`.
 
-2. if not, checks if the home directory (`"~"`) contains such a file and key.
+3. if not, checks if the home directory (`"~"`) contains such a file and key.
 
-3. if not sets the argument to `TRUE`.
+4. if not sets the argument to `TRUE`.
 
 ```{r}
 library(fallback)

@@ -44,14 +44,14 @@ test_that("basic usage with verbose = 1", {
     resolve_fallback(frog)$value
   }
   withr::with_options(list(fallback.verbose = 1), {
-    expect_output(g(), "declaring argument frog \\(.*config")
+    expect_output(g(), "resolving argument frog \\(.*config")
   })
   # hierarchy: ~ -> terminal fallback
   f <- function(frog = fallback(letters, hierarchy = "~")) {
     resolve_fallback(frog)$value
   }
   withr::with_options(list(fallback.verbose = 1), {
-    expect_output(f(), "declaring argument frog \\(term")
+    expect_output(f(), "resolving argument frog \\(term")
   })
 })
 
