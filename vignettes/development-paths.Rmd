@@ -1,0 +1,51 @@
+---
+title: "Vignette Title"
+author: "Vignette Author"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Vignette Title}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+We have the following options to store configurations:
+
+* Using environment variables: This is dangerous (no namespacing), inflexible
+  (global settings), just strings, very inflexible data structure.
+
+* Using R options: kind of hidden, one setting for each R session, very flexible
+  data structure, R native. Cannot be used for other programming langauges.
+
+* config file: transparent, portable, somehow flexible data structure. Using
+  working directory as reference, allows for heuristics like various profile 
+  files. Language agnostic.
+
+We believe a config file is best suited. Use something like reprex:::opts() as
+default arguements of `style_dir()`
+
+```{r}
+style_dir(
+  path = fallback("."),
+  ...,
+  style = fallback("tidyverse_style"),
+  transformers = style(...),
+  filetype = fallback("R"),
+  recursive = fallback(TRUE),
+  exclude_files = fallback(NULL),
+  include_roxygen_examples = fallback(TRUE)
+)
+```
+
+There are different options as per how this could be implemented on the 
+config file part.
+
+- storing *all* configurations in one file `fallback.yaml` and use sub-headers 
+  for the different packages. Advantage: All configurations in one place.
+  
+- create a separate file for each package, e.g. `styler.yaml` to store styler
+  configurations. Drawback: Directory convolution. Solution: use folder fallback.
