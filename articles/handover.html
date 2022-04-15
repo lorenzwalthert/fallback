@@ -41,7 +41,7 @@
 <li class="active nav-item dropdown">
   <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-articles">Articles</a>
   <div class="dropdown-menu" aria-labelledby="dropdown-articles">
-    <a class="dropdown-item" href="../articles/development-paths.html">Development Paaths</a>
+    <a class="dropdown-item" href="../articles/development-paths.html">Development Paths</a>
     <a class="dropdown-item" href="../articles/handover.html">handover</a>
   </div>
 </li>
@@ -79,10 +79,8 @@
     
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">knitr</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/knitr/man/opts_chunk.html" class="external-link">opts_chunk</a></span><span class="op">$</span><span class="fu">set</span><span class="op">(</span>eval <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></code></pre></div>
-<p>Any interest in moving {fallback} to the next level? It“s a package to resolve default values with config files, similar to RStudio”s {config}</p>
+<p>Any interest in moving {fallback} to the next level? It’s a package to resolve default values with config files, similar to RStudio’s {config}, but extends it with:</p>
 <ul>
-<li>Support for a config file residing in the users"s home directory.</li>
-<li>Supporting for nested configurations.</li>
 <li>Deriving the key for a config value within the function that resolves it, so we can write:</li>
 </ul>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
@@ -96,7 +94,7 @@
 <span class="co">#&gt; key: x</span>
 <span class="co">#&gt; value: TRUE</span></code></pre></div>
 <ul>
-<li>explicitly allow (package developers) to set default values inline, with {config} won"t allow: <a href="https://github.com/rstudio/config/issues/28" class="external-link uri">https://github.com/rstudio/config/issues/28</a>. This fallback will be used whenever a user has not defined a value in a config file, which will be the case for most values. So For {styler}, for example, we can have</li>
+<li>explicitly allow (package developers) to set default values inline, with {config} won’t allow: <a href="https://github.com/rstudio/config/issues/28" class="external-link uri">https://github.com/rstudio/config/issues/28</a>. This fallback will be used whenever a user has not defined a value in a config file, which will be the case for most values. So For {styler}, for example, we can have</li>
 </ul>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">style_file</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">file</span>, <span class="va">scope</span> <span class="op">=</span> <span class="fu"><a href="../reference/fallback.html">fallback</a></span><span class="op">(</span><span class="st">"tokens"</span><span class="op">)</span>, <span class="va">...</span><span class="op">)</span> <span class="op">{</span>
@@ -120,6 +118,10 @@
 
 <span class="co"># maybe again changes his mind one time to override this again.</span>
 <span class="fu">style_file</span><span class="op">(</span><span class="st">"path/to/my.R"</span>, scope <span class="op">=</span> <span class="st">"none"</span><span class="op">)</span></code></pre></div>
+<ul>
+<li>Supporting for nested configurations.</li>
+<li>Support for a config file residing in the users’s home directory.</li>
+</ul>
 <p>I believe such a package would be quite useful, but I don’t have time to develop it. I’m happy to transfer the {fallback} package as is to anyone who would like to continue my work. As I said, maybe the only think that remains in the end is the ideas and maybe the API, I am completely fine with (and I think it’s a good idea) to move some of the heavy lifting to {config} and only build a thin layer on top.</p>
   </main>
 </div>
