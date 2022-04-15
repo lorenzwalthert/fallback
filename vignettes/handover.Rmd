@@ -1,0 +1,57 @@
+---
+title: "handover"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{handover}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+```{r}
+knitr::opts_chunk$set(eval = FALSE)
+```
+
+Any interest in moving {fallback} to the next level? It"s a package to resolve default values with config files, similar to RStudio"s {config} 
+
+* Support for a config file residing in the users"s home directory.
+* Supporting for nested configurations.
+* Deriving the key for a config value within the function that resolves it, so we can write:
+
+```{r}
+f <- function(x = fallback(TRUE)) {
+  resolve(x)
+}
+f()
+#> fallback
+#> package: [package where the function is defined]
+#> function: f
+#> key: x
+#> value: TRUE
+```
+
+* explicitly allow (package developers) to set default values inline, with {config} won"t allow: https://github.com/rstudio/config/issues/28. This fallback will be used whenever a user has not defined a value in a config file, which will be the case for most values. So For {styler}, for example, we can have
+```{r}
+style_file <- function(file, scope = fallback("tokens"), ...) {
+  # ...
+}
+
+# then, the user calls the function without a config file.
+style_file("path/to/my.R")
+
+# overrides the default inline
+style_file("path/to/my.R", scope = "spaces")
+
+# writes a config file to overwrite it, e.g. globally or for that project dir:
+yaml::write_yaml(
+  list(
+    styler = list(scope = "line_breaks")
+  ),
+  "~/fallback.yaml"
+)
+style_file("path/to/my.R")
+
+# maybe again changes his mind one time to override this again.
+style_file("path/to/my.R", scope = "none")
+```
+
+
+I believe such a package would be quite useful, but I don't have time to develop it. I'm happy to transfer the {fallback} package as is to anyone who would like to continue my work. As I said, maybe the only think that remains in the end is the ideas and maybe the API, I am completely fine with (and I think it's a good idea) to move some of the heavy lifting to {config} and only build a thin layer on top.
