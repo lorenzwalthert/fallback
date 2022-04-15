@@ -1,10 +1,9 @@
 ---
-title: "Vignette Title"
-author: "Vignette Author"
+title: "Development Paaths"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Vignette Title}
+  %\VignetteIndexEntry{Development Paths}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
