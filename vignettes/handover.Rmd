@@ -1,5 +1,5 @@
 ---
-title: "handover"
+title: 'handover'
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{handover}
@@ -10,10 +10,8 @@ vignette: >
 knitr::opts_chunk$set(eval = FALSE)
 ```
 
-Any interest in moving {fallback} to the next level? It"s a package to resolve default values with config files, similar to RStudio"s {config} 
+Any interest in moving {fallback} to the next level? It's a package to resolve default values with config files, similar to RStudio's {config}, but extends it with: 
 
-* Support for a config file residing in the users"s home directory.
-* Supporting for nested configurations.
 * Deriving the key for a config value within the function that resolves it, so we can write:
 
 ```{r}
@@ -28,7 +26,7 @@ f()
 #> value: TRUE
 ```
 
-* explicitly allow (package developers) to set default values inline, with {config} won"t allow: https://github.com/rstudio/config/issues/28. This fallback will be used whenever a user has not defined a value in a config file, which will be the case for most values. So For {styler}, for example, we can have
+* explicitly allow (package developers) to set default values inline, with {config} won't allow: https://github.com/rstudio/config/issues/28. This fallback will be used whenever a user has not defined a value in a config file, which will be the case for most values. So For {styler}, for example, we can have
 ```{r}
 style_file <- function(file, scope = fallback("tokens"), ...) {
   # ...
@@ -52,6 +50,9 @@ style_file("path/to/my.R")
 # maybe again changes his mind one time to override this again.
 style_file("path/to/my.R", scope = "none")
 ```
+
+* Supporting for nested configurations.
+* Support for a config file residing in the users's home directory.
 
 
 I believe such a package would be quite useful, but I don't have time to develop it. I'm happy to transfer the {fallback} package as is to anyone who would like to continue my work. As I said, maybe the only think that remains in the end is the ideas and maybe the API, I am completely fine with (and I think it's a good idea) to move some of the heavy lifting to {config} and only build a thin layer on top.
