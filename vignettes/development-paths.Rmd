@@ -28,7 +28,7 @@ We have the following options to store configurations:
 We believe a config file is best suited. Use something like reprex:::opts() as
 default arguements of `style_dir()`
 
-```{r}
+```{r, eval = FALSE}
 style_dir(
   path = fallback("."),
   ...,
