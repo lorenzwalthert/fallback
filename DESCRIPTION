@@ -27,7 +27,8 @@ Suggests:
     withr,
     knitr,
     rmarkdown
-URL: https://github.com/lorenzwalthert/fallback
+URL: https://github.com/lorenzwalthert/fallback,
+    https://lorenzwalthert.github.io/fallback/
 BugReports: https://github.com/lorenzwalthert/fallback/issues
 Depends: 
     R (>= 3.1)

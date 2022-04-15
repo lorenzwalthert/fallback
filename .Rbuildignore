@@ -6,3 +6,7 @@
 ^fallback\.Rproj$
 ^\.Rproj\.user$
 ^config.yaml$
+^\.github$
+^_pkgdown\.yml$
+^docs$
+^pkgdown$
